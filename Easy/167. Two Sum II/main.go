@@ -21,6 +21,7 @@ import (
 	"reflect"
 )
 
+// Space Complexity: O(1), Time Complexity: O(n)
 func twoSum(numbers []int, target int) []int {
 	result := []int{}
 
@@ -39,6 +40,23 @@ func twoSum(numbers []int, target int) []int {
 		} else {
 			r--
 		}
+	}
+
+	return result
+}
+
+// Space Complexity: O(n-1), Time Complexity: O(n)
+func twoSumWithHash(numbers []int, target int) []int {
+	result := []int{}
+
+	hashTable := map[int]int{}
+
+	for i, num := range numbers {
+		if _, ok := hashTable[num]; ok {
+			result = append(result, hashTable[num], i+1)
+			break
+		}
+		hashTable[target-num] = i + 1
 	}
 
 	return result
@@ -69,6 +87,13 @@ func main() {
 		if result := twoSum(t.input, t.target); !reflect.DeepEqual(result, t.expect) {
 			log.Fatalf(
 				"%s: expect:%v != actual:%v",
+				t.description, t.expect, result,
+			)
+		}
+
+		if result := twoSumWithHash(t.input, t.target); !reflect.DeepEqual(result, t.expect) {
+			log.Fatalf(
+				"(TwoSumWithHash) %s: expect:%v != actual:%v",
 				t.description, t.expect, result,
 			)
 		}
