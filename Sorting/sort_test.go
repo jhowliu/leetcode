@@ -1,4 +1,4 @@
-package Sorting
+package sorting
 
 import (
 	"log"
@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func TestHeapSort(t *testing.T) {
+func TestSorting(t *testing.T) {
 
 	testCases := []struct {
 		description string
@@ -28,13 +28,31 @@ func TestHeapSort(t *testing.T) {
 			input:       []int{},
 			expect:      []int{},
 		},
+		{
+			description: "Test Case 4",
+			input:       []int{1, 1, 2, 2, 3},
+			expect:      []int{1, 1, 2, 2, 3},
+		},
 	}
 
 	for _, tc := range testCases {
-		if heapSort(tc.input); !reflect.DeepEqual(tc.input, tc.expect) {
+		tmp := make([]int, len(tc.input))
+
+		copy(tmp, tc.input)
+		// Heap Sort
+		if heapSort(tmp); !reflect.DeepEqual(tmp, tc.expect) {
 			log.Fatalf(
 				"%s: expect:[%v] != result:[%v]",
-				tc.description, tc.expect, tc.input,
+				tc.description, tc.expect, tmp,
+			)
+		}
+
+		copy(tmp, tc.input)
+		// Qucik Sort
+		if quickSort(tmp, 0, len(tc.input)-1); !reflect.DeepEqual(tmp, tc.expect) {
+			log.Fatalf(
+				"%s: expect:[%v] != result:[%v]",
+				tc.description, tc.expect, tmp,
 			)
 		}
 	}
