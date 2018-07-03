@@ -78,5 +78,14 @@ func TestSorting(t *testing.T) {
 				tc.description, tc.expect, tmp,
 			)
 		}
+
+		copy(tmp, tc.input)
+		// Insertion Sort Recursively
+		if insertionSortRecursively(tmp, len(tmp)); !reflect.DeepEqual(tmp, tc.expect) {
+			log.Fatalf(
+				"%s: expect:[%v] != result:[%v]",
+				tc.description, tc.expect, tmp,
+			)
+		}
 	}
 }
