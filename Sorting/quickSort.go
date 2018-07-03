@@ -27,6 +27,7 @@ func partition(nums []int, left int, right int) int {
 
 	// swap the larger element(i+1) and pivot
 	swap(nums, i+1, right)
+
 	// return index of pivot
 	return i + 1
 }

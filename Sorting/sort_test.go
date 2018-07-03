@@ -33,6 +33,11 @@ func TestSorting(t *testing.T) {
 			input:       []int{1, 1, 2, 2, 3},
 			expect:      []int{1, 1, 2, 2, 3},
 		},
+		{
+			description: "Test Case 5",
+			input:       []int{1, 1, 2, 3},
+			expect:      []int{1, 1, 2, 3},
+		},
 	}
 
 	for _, tc := range testCases {
@@ -50,6 +55,15 @@ func TestSorting(t *testing.T) {
 		copy(tmp, tc.input)
 		// Qucik Sort
 		if quickSort(tmp, 0, len(tc.input)-1); !reflect.DeepEqual(tmp, tc.expect) {
+			log.Fatalf(
+				"%s: expect:[%v] != result:[%v]",
+				tc.description, tc.expect, tmp,
+			)
+		}
+
+		copy(tmp, tc.input)
+		// Merge Sort
+		if mergeSort(tmp, 0, len(tc.input)-1); !reflect.DeepEqual(tmp, tc.expect) {
 			log.Fatalf(
 				"%s: expect:[%v] != result:[%v]",
 				tc.description, tc.expect, tmp,
