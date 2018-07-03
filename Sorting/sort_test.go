@@ -89,11 +89,19 @@ func TestSorting(t *testing.T) {
 		}
 
 		copy(tmp, tc.input)
-		// Insertion Sort Recursively
+		// Insertion Sort with binary search
 		if binaryInsertionSort(tmp, len(tmp)); !reflect.DeepEqual(tmp, tc.expect) {
 			log.Fatalf(
 				"%s: expect:[%v] != result:[%v]",
 				tc.description, tc.expect, tmp,
+			)
+		}
+
+		// counting Sort
+		if result := countingSort(tc.input, 100); !reflect.DeepEqual(result, tc.expect) {
+			log.Fatalf(
+				"%s: expect:[%v] != result:[%v]",
+				tc.description, tc.expect, result,
 			)
 		}
 	}
